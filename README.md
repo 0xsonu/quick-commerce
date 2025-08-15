@@ -1,109 +1,173 @@
-# EcommercePlatform
+# E-commerce Platform
 
-<a alt="Nx logo" href="https://nx.dev" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="45"></a>
+A large-scale, Amazon-like e-commerce platform optimized for the Indian market with 30-minute quick commerce delivery capabilities.
 
-✨ Your new, shiny [Nx workspace](https://nx.dev) is ready ✨.
+## Architecture
 
-[Learn more about this workspace setup and its capabilities](https://nx.dev/nx-api/js?utm_source=nx_project&amp;utm_medium=readme&amp;utm_campaign=nx_projects) or run `npx nx graph` to visually explore what was created. Now, let's get you up to speed!
+This project uses a monorepo structure with the following components:
 
-## Generate a library
+- **Backend**: NestJS-based microservices architecture
+- **Frontend**: React with Vite, TanStack Router, and TanStack Query
+- **Shared**: Common types and utilities
+- **Database**: PostgreSQL 16 with Redis 7 for caching
 
-```sh
-npx nx g @nx/js:lib packages/pkg1 --publishable --importPath=@my-org/pkg1
+## Quick Start
+
+### Prerequisites
+
+- Node.js 20+
+- Docker and Docker Compose
+- npm
+
+### Development Setup
+
+1. **Clone and setup the project:**
+
+   ```bash
+   cd ecommerce-platform
+   ```
+
+2. **Start the development environment:**
+
+   ```bash
+   docker-compose up -d
+   ```
+
+3. **Install dependencies for all packages:**
+
+   ```bash
+   # Backend
+   cd backend && npm install
+
+   # Frontend
+   cd ../frontend && npm install
+
+   # Shared types
+   cd ../shared && npm install
+   ```
+
+4. **Start development servers:**
+
+   ```bash
+   # Backend (in backend directory)
+   npm run start:dev
+
+   # Frontend (in frontend directory)
+   npm run dev
+   ```
+
+### Services
+
+- **Frontend**: http://localhost:5173
+- **Backend API**: http://localhost:3000
+- **Database**: PostgreSQL on localhost:5432
+- **Redis**: localhost:6379
+
+### Health Check
+
+Check if all services are running:
+
+```bash
+curl http://localhost:3000/health
 ```
 
-## Run tasks
-
-To build the library use:
-
-```sh
-npx nx build pkg1
-```
-
-To run any task with Nx use:
-
-```sh
-npx nx <target> <project-name>
-```
-
-These targets are either [inferred automatically](https://nx.dev/concepts/inferred-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) or defined in the `project.json` or `package.json` files.
-
-[More about running tasks in the docs &raquo;](https://nx.dev/features/run-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-## Versioning and releasing
-
-To version and release the library use
+## Project Structure
 
 ```
-npx nx release
+ecommerce-platform/
+├── backend/                 # NestJS backend application
+│   ├── src/
+│   │   ├── config/         # Configuration files
+│   │   ├── entities/       # TypeORM entities
+│   │   └── ...
+│   └── Dockerfile.dev
+├── frontend/               # React frontend application
+│   ├── src/
+│   │   ├── components/     # React components
+│   │   ├── pages/          # Page components
+│   │   └── ...
+│   └── Dockerfile.dev
+├── shared/                 # Shared types and utilities
+│   └── src/
+├── database/              # Database initialization scripts
+│   └── init/
+└── docker-compose.yml     # Development environment
 ```
 
-Pass `--dry-run` to see what would happen without actually releasing the library.
+## Technology Stack
 
-[Learn more about Nx release &raquo;](https://nx.dev/features/manage-releases?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+### Backend
 
-## Keep TypeScript project references up to date
+- **Framework**: NestJS 10.x
+- **Database**: PostgreSQL 16 with TypeORM
+- **Cache**: Redis 7
+- **Language**: TypeScript 5.x
 
-Nx automatically updates TypeScript [project references](https://www.typescriptlang.org/docs/handbook/project-references.html) in `tsconfig.json` files to ensure they remain accurate based on your project dependencies (`import` or `require` statements). This sync is automatically done when running tasks such as `build` or `typecheck`, which require updated references to function correctly.
+### Frontend
 
-To manually trigger the process to sync the project graph dependencies information to the TypeScript project references, run the following command:
+- **Framework**: React 18.x with Vite
+- **Routing**: TanStack Router
+- **State Management**: TanStack Query
+- **Language**: TypeScript 5.x
 
-```sh
-npx nx sync
+### Infrastructure
+
+- **Containerization**: Docker & Docker Compose
+- **Database**: PostgreSQL 16
+- **Cache**: Redis 7
+
+## Development
+
+### Available Scripts
+
+#### Backend
+
+```bash
+npm run start:dev    # Start development server
+npm run build        # Build for production
+npm run test         # Run tests
 ```
 
-You can enforce that the TypeScript project references are always in the correct state when running in CI by adding a step to your CI job configuration that runs the following command:
+#### Frontend
 
-```sh
-npx nx sync:check
+```bash
+npm run dev          # Start development server
+npm run build        # Build for production
+npm run preview      # Preview production build
 ```
 
-[Learn more about nx sync](https://nx.dev/reference/nx-commands#sync)
+#### Shared
 
-## Set up CI!
-
-### Step 1
-
-To connect to Nx Cloud, run the following command:
-
-```sh
-npx nx connect
+```bash
+npm run build        # Build shared types
+npm run dev          # Watch mode for development
 ```
 
-Connecting to Nx Cloud ensures a [fast and scalable CI](https://nx.dev/ci/intro/why-nx-cloud?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) pipeline. It includes features such as:
+## Environment Variables
 
-- [Remote caching](https://nx.dev/ci/features/remote-cache?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Task distribution across multiple machines](https://nx.dev/ci/features/distribute-task-execution?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Automated e2e test splitting](https://nx.dev/ci/features/split-e2e-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Task flakiness detection and rerunning](https://nx.dev/ci/features/flaky-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+### Backend (.env.development)
 
-### Step 2
+- `DATABASE_HOST`: PostgreSQL host
+- `DATABASE_PORT`: PostgreSQL port
+- `DATABASE_NAME`: Database name
+- `DATABASE_USER`: Database user
+- `DATABASE_PASSWORD`: Database password
+- `REDIS_HOST`: Redis host
+- `REDIS_PORT`: Redis port
 
-Use the following command to configure a CI workflow for your workspace:
+### Frontend (.env.development)
 
-```sh
-npx nx g ci-workflow
-```
+- `VITE_API_URL`: Backend API URL
 
-[Learn more about Nx on CI](https://nx.dev/ci/intro/ci-with-nx#ready-get-started-with-your-provider?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+## Next Steps
 
-## Install Nx Console
+This foundation provides:
 
-Nx Console is an editor extension that enriches your developer experience. It lets you run tasks, generate code, and improves code autocompletion in your IDE. It is available for VSCode and IntelliJ.
+- ✅ Monorepo structure with NX
+- ✅ NestJS backend with TypeORM and PostgreSQL
+- ✅ React frontend with TanStack Router and Query
+- ✅ Docker development environment
+- ✅ Shared types package
+- ✅ Database connectivity and health checks
 
-[Install Nx Console &raquo;](https://nx.dev/getting-started/editor-setup?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-## Useful links
-
-Learn more:
-
-- [Learn more about this workspace setup](https://nx.dev/nx-api/js?utm_source=nx_project&amp;utm_medium=readme&amp;utm_campaign=nx_projects)
-- [Learn about Nx on CI](https://nx.dev/ci/intro/ci-with-nx?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Releasing Packages with Nx release](https://nx.dev/features/manage-releases?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [What are Nx plugins?](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-And join the Nx community:
-- [Discord](https://go.nx.dev/community)
-- [Follow us on X](https://twitter.com/nxdevtools) or [LinkedIn](https://www.linkedin.com/company/nrwl)
-- [Our Youtube channel](https://www.youtube.com/@nxdevtools)
-- [Our blog](https://nx.dev/blog?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+Ready for implementing the next tasks in the development plan!
