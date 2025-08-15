@@ -37,22 +37,22 @@ This project uses a monorepo structure with the following components:
 
    ```bash
    # Backend
-   cd backend && npm install
+   cd apps/backend && npm install
 
    # Frontend
    cd ../frontend && npm install
 
    # Shared types
-   cd ../shared && npm install
+   cd ../../packages/shared-types && npm install
    ```
 
 4. **Start development servers:**
 
    ```bash
-   # Backend (in backend directory)
+   # Backend (in apps/backend directory)
    npm run start:dev
 
-   # Frontend (in frontend directory)
+   # Frontend (in apps/frontend directory)
    npm run dev
    ```
 
@@ -75,20 +75,22 @@ curl http://localhost:3000/health
 
 ```
 ecommerce-platform/
-├── backend/                 # NestJS backend application
-│   ├── src/
-│   │   ├── config/         # Configuration files
-│   │   ├── entities/       # TypeORM entities
-│   │   └── ...
-│   └── Dockerfile.dev
-├── frontend/               # React frontend application
-│   ├── src/
-│   │   ├── components/     # React components
-│   │   ├── pages/          # Page components
-│   │   └── ...
-│   └── Dockerfile.dev
-├── shared/                 # Shared types and utilities
-│   └── src/
+├── apps/                   # Applications
+│   ├── backend/           # NestJS backend application
+│   │   ├── src/
+│   │   │   ├── config/    # Configuration files
+│   │   │   ├── entities/  # TypeORM entities
+│   │   │   └── ...
+│   │   └── Dockerfile.dev
+│   └── frontend/          # React frontend application
+│       ├── src/
+│       │   ├── components/ # React components
+│       │   ├── pages/     # Page components
+│       │   └── ...
+│       └── Dockerfile.dev
+├── packages/              # Shared libraries
+│   └── shared-types/      # Shared TypeScript types
+│       └── src/
 ├── database/              # Database initialization scripts
 │   └── init/
 └── docker-compose.yml     # Development environment
@@ -136,7 +138,7 @@ npm run build        # Build for production
 npm run preview      # Preview production build
 ```
 
-#### Shared
+#### Shared Types
 
 ```bash
 npm run build        # Build shared types

@@ -2,7 +2,14 @@
   "name": "@ecommerce-platform/source",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "build": "nx run-many --target=build --all",
+    "test": "nx run-many --target=test --all",
+    "lint": "nx run-many --target=lint --all",
+    "dev:backend": "nx serve backend",
+    "dev:frontend": "nx serve frontend",
+    "build:shared-types": "nx build shared-types"
+  },
   "private": true,
   "dependencies": {},
   "devDependencies": {
@@ -16,6 +23,7 @@
     "typescript": "~5.8.2"
   },
   "workspaces": [
+    "apps/*",
     "packages/*"
   ]
 }

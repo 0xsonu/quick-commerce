@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   postgres:
     image: postgres:16-alpine
@@ -38,7 +36,7 @@ services:
 
   backend:
     build:
-      context: ./backend
+      context: ./apps/backend
       dockerfile: Dockerfile.dev
     container_name: ecommerce-backend
     ports:
@@ -53,7 +51,7 @@ services:
       - REDIS_HOST=redis
       - REDIS_PORT=6379
     volumes:
-      - ./backend:/app
+      - ./apps/backend:/app
       - /app/node_modules
     depends_on:
       postgres:
@@ -66,7 +64,7 @@ services:
 
   frontend:
     build:
-      context: ./frontend
+      context: ./apps/frontend
       dockerfile: Dockerfile.dev
     container_name: ecommerce-frontend
     ports:
@@ -74,7 +72,7 @@ services:
     environment:
       - VITE_API_URL=http://localhost:3000
     volumes:
-      - ./frontend:/app
+      - ./apps/frontend:/app
       - /app/node_modules
     networks:
       - ecommerce-network

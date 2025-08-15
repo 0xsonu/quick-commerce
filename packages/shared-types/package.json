@@ -1,5 +1,5 @@
 {
-  "name": "@ecommerce-platform/shared",
+  "name": "@ecommerce-platform/shared-types",
   "version": "1.0.0",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -11,7 +11,7 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": "Shared types and utilities for ecommerce platform",
+  "description": "Shared TypeScript types and interfaces for ecommerce platform",
   "devDependencies": {
     "typescript": "^5.9.2"
   }
